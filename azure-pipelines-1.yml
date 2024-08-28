@@ -1,5 +1,4 @@
 # Initialize a new Git repository
-git init TodoListApp
 
 # Navigate into the project directory
 cd TodoListApp
