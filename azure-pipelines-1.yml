@@ -1,0 +1,71 @@
+# Initialize a new Git repository
+git init TodoListApp
+
+# Navigate into the project directory
+cd TodoListApp
+
+# Create a README file
+echo "# To-Do List App" > README.md
+
+# Create a basic HTML file in src directory
+mkdir src
+echo "<!DOCTYPE html>
+<html lang=\"en\">
+<head>
+    <meta charset=\"UTF-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+    <title>To-Do List App</title>
+</head>
+<body>
+    <h1>To-Do List App</h1>
+    <p>This is a simple to-do list application.</p>
+</body>
+</html>" > src/index.html
+
+# Create a package.json file (if using Node.js)
+echo "{
+  \"name\": \"todolistapp\",
+  \"version\": \"1.0.0\",
+  \"description\": \"A simple to-do list app\",
+  \"main\": \"index.js\",
+  \"scripts\": {
+    \"test\": \"echo 'Running tests' && exit 0\"
+  },
+  \"author\": \"Your Name\",
+  \"license\": \"ISC\"
+}" > package.json
+
+# Create Azure Pipelines configuration file
+echo "trigger:
+- dev
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '14.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install
+    npm test
+  displayName: 'Install dependencies and run tests'
+
+- script: echo 'Build succeeded!'
+  displayName: 'Build Success Notification'
+" > azure-pipelines.yml
+
+# Add all files to the staging area
+git add .
+
+# Commit the changes
+git commit -m "Initial commit with project files and Azure Pipelines configuration"
+
+# Add the remote repository (replace with your actual Azure DevOps repository URL)
+git remote add origin https://dev.azure.com/TodoListAppOrg/TodoListApp/_git/TodoListApp
+
+# Push the changes to the dev branch
+git push -u origin dev
+
